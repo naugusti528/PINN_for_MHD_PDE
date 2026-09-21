@@ -1,0 +1,1 @@
+# PINN_for_MHD_PDE
