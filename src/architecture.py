@@ -25,15 +25,21 @@ class PINNArchitecture:
 
     def u(x,t):
         # boundary conditions for u-field
-        if x==0 and t==0:
-            u_field = 0
-        if t==500:
-            u_field = 0.5
+        # if x==0 and t==0:
+            # u_field = 0
+        # if t==500:
+            # u_field = 0.5
 
     def B(x,t):
         # boundary conditions for B-field
-        if x==1000 and t==1000:
-            B_field = 0
+        # if x==1000 and t==1000:
+        #     B_field = 0
+
+    # put boundary conditions in loss function; should be taken from input
+
+    # inputs --> layers --> output: handling inputs/outputs, and coding layers/neurons, is what goes in this file
+    # define architecture in one function
+    # another function, calls architecture, handles/sets inputs and outputs
     
     def get_x(self):
         return x
@@ -44,6 +50,9 @@ class PINNArchitecture:
         x = new_x
     def set_t(self, new_t):
         t = new_t
+
+    # fully connected multi layer perceptron
+    
 
     
     
