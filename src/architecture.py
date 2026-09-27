@@ -19,10 +19,22 @@ import jax
 import jax.numpy as jnp
 
 class PINNArchitecture:
-    def __init__(self, x, t):
+    def __init__(self, x, t, u_field, B_field):
         self.x = x
         self.t = t
 
+    def u(x,t):
+        # boundary conditions for u-field
+        if x==0 and t==0:
+            u_field = 0
+        if t==500:
+            u_field = 0.5
+
+    def B(x,t):
+        # boundary conditions for B-field
+        if x==1000 and t==1000:
+            B_field = 0
+    
     def get_x(self):
         return x
     def get_t(self):
@@ -33,4 +45,5 @@ class PINNArchitecture:
     def set_t(self, new_t):
         t = new_t
 
-        
+    
+    
