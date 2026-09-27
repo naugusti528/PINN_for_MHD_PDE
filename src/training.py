@@ -1,3 +1,10 @@
+# this is what a training loop in JAX looks like
+'''
+for step in range(num_steps):
+    grads = jax.grad(loss_fn)(params, x, y)
+    params = jax.tree.map(lambda p, g: p - lr*g, params, grads)
+'''
+
 # dedicated to training the PINN
 # create instance of model, pass vector (input) to instance, observe output, construct loss
 # call loss: pass input values to loss, collect output (call function, we give inputs, it gives outputs)
