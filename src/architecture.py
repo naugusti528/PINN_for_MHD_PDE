@@ -15,7 +15,10 @@ for step in range(num_steps):
 
 # µ_0, ϵ_0 and c set to 1 here - Heaviside-Lorentz units
 
-class Inputs:
+import jax
+import jax.numpy as jnp
+
+class PINNArchitecture:
     def __init__(self, x, t):
         self.x = x
         self.t = t
@@ -30,4 +33,4 @@ class Inputs:
     def set_t(self, new_t):
         t = new_t
 
-    
+        
