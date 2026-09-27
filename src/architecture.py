@@ -6,14 +6,7 @@
 
 # format tensors for automatic differentiation
 
-# this is what a training loop in JAX looks like
-'''
-for step in range(num_steps):
-    grads = jax.grad(loss_fn)(params, x, y)
-    params = jax.tree.map(lambda p, g: p - lr*g, params, grads)
-'''
-
-# µ_0, ϵ_0 and c set to 1 here - Heaviside-Lorentz units
+# Heaviside-Lorentz units? maybe
 
 import jax
 import jax.numpy as jnp
