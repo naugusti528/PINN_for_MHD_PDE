@@ -11,41 +11,51 @@
 import jax
 import jax.numpy as jnp
 
-class PINNArchitecture:
-    def __init__(self, x, t, u_field, B_field):
-        self.x = x
-        self.t = t
+def PINN_Architecture(self, hidden_layers, PRNG_key, activation_function, input_dim=2, output_dim=7):
+    # activation function is tanh
+    # input dim is 2 because just x and t
+    # output dim is 7 because density, 3-velocity, pressure, By, Bz altogether 7 (Bx held constant)
 
-    def u(x,t):
-        # boundary conditions for u-field
-        # if x==0 and t==0:
-            # u_field = 0
-        # if t==500:
-            # u_field = 0.5
+    layer_chain = []
+    layer_chain.append(input_dim)
+    layer_chain.extend(hidden_layers) # hidden layers is meant to be a list of layers
+    layer_chain.append(output_dim)
 
-    def B(x,t):
-        # boundary conditions for B-field
-        # if x==1000 and t==1000:
-        #     B_field = 0
+    # goal: we have 7 shapes:
+    # W: (2, 64), b: (64,)
+    # W: (64, 64), b: (64,)
+    # W: (64, 64), b: (64,)
+    # W: (64, 64), b: (64,)
+    # W: (64, 64), b: (64,)
+    # W: (64, 64), b: (64,)
+    # W: (64, 7), b: (7,)
 
-    # put boundary conditions in loss function; should be taken from input
+    params = []
 
-    # inputs --> layers --> output: handling inputs/outputs, and coding layers/neurons, is what goes in this file
-    # define architecture in one function
-    # another function, calls architecture, handles/sets inputs and outputs
+    for size_in, size_out in zip(layer_chain[:-1], layer_chain[1:]):
+        # using input key to generate new keys
+        PRNG_key, subkey = jax.random.split(PRNG_key)
+
+        # declaring initialization function for weights
+        '''
+        init_fn = jax nn initializers something
+        '''
+        # generating weights with random keys, using PRNG key
+        W = init_fn(subkey, shape=(size_in, size_out))
+
+        # biases initialized to zero
+        b = jnp.zeros(size_out)
+
+        # storing matrix + bias as tuple in params
+        params.append((W, b))
+
+    return params
     
-    def get_x(self):
-        return x
-    def get_t(self):
-        return t
 
-    def set_x(self, new_x):
-        x = new_x
-    def set_t(self, new_t):
-        t = new_t
+def call_PINN_Architecture(self, params, input_array, activation_function):
+    for (W, b) in params:
+        # to be continued
 
-    # fully connected multi layer perceptron
-    
 
-    
+
     
