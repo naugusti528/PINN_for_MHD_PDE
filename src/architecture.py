@@ -37,9 +37,8 @@ def PINN_Architecture(self, hidden_layers, PRNG_key, activation_function, input_
         PRNG_key, subkey = jax.random.split(PRNG_key)
 
         # declaring initialization function for weights
-        '''
-        init_fn = jax nn initializers something
-        '''
+        init_fn = jax.nn.initializers.he_normal()
+        
         # generating weights with random keys, using PRNG key
         W = init_fn(subkey, shape=(size_in, size_out))
 
@@ -53,8 +52,12 @@ def PINN_Architecture(self, hidden_layers, PRNG_key, activation_function, input_
     
 
 def call_PINN_Architecture(self, params, input_array, activation_function):
-    for (W, b) in params:
+    for (W, b) in params[:-1]:
         # to be continued
+        current_value = x
+        current_value = activation_function((current_value @ W) + b)
+
+    # do last (W,b) pair
 
 
 
