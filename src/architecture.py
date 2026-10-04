@@ -11,7 +11,7 @@
 import jax
 import jax.numpy as jnp
 
-def PINN_Architecture(self, hidden_layers, PRNG_key, activation_function, input_dim=2, output_dim=7):
+def PINN_Architecture(hidden_layers, PRNG_key, activation_function, input_dim=2, output_dim=7):
     # activation function is tanh
     # input dim is 2 because just x and t
     # output dim is 7 because density, 3-velocity, pressure, By, Bz altogether 7 (Bx held constant)
@@ -20,15 +20,6 @@ def PINN_Architecture(self, hidden_layers, PRNG_key, activation_function, input_
     layer_chain.append(input_dim)
     layer_chain.extend(hidden_layers) # hidden layers is meant to be a list of layers
     layer_chain.append(output_dim)
-
-    # goal: we have 7 shapes:
-    # W: (2, 64), b: (64,)
-    # W: (64, 64), b: (64,)
-    # W: (64, 64), b: (64,)
-    # W: (64, 64), b: (64,)
-    # W: (64, 64), b: (64,)
-    # W: (64, 64), b: (64,)
-    # W: (64, 7), b: (7,)
 
     params = []
 
@@ -49,16 +40,20 @@ def PINN_Architecture(self, hidden_layers, PRNG_key, activation_function, input_
         params.append((W, b))
 
     return params
-    
 
-def call_PINN_Architecture(self, params, input_array, activation_function):
+
+def call_PINN_Architecture(params, input_array, activation_function):
+    # looping over every (matrix,bias) tuple in params
+    current_value = input_array
     for (W, b) in params[:-1]:
-        # to be continued
-        current_value = x
         current_value = activation_function((current_value @ W) + b)
 
-    # do last (W,b) pair
+    # doing last tuple separately from activation function
+    W,b = params[-1]
+    current_value = (current_value @ W) + b
 
+    return current_value
+    
 
 
     
