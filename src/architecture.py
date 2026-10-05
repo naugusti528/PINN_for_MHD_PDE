@@ -11,10 +11,10 @@
 import jax
 import jax.numpy as jnp
 
-def PINN_Architecture(PRNG_key, activation_function, input_dim=2, output_dim=7):
+def PINN_Architecture(PRNG_key, input_array, activation_function, input_dim=2, output_dim=8):
     # activation function is tanh
     # input dim is 2 because just x and t
-    # output dim is 7 because density, 3-velocity, By, Bz altogether 7 (Bx held constant)
+    # output dim is 3 because density, pressure, 3-velocity, 3-Bfield
 
     hidden_layers = [64,64,64] # 3 layers 64 neurons
     
@@ -46,27 +46,14 @@ def PINN_Architecture(PRNG_key, activation_function, input_dim=2, output_dim=7):
         # storing matrix + bias as tuple in params
         params.append((W, b))
 
-    return params
-
-'''
-move below function up into above function (and use references from jax documentation for simplification)
-'''
-def call_PINN_Architecture(params, input_array, activation_function):
-    # looping over every (matrix,bias) tuple in params
-    current_value = input_array
+    x = input_array
     for (W, b) in params[:-1]:
-        current_value = activation_function((current_value @ W) + b)
+        current_value = activation_function((x @ W) + b)
 
     # doing last tuple separately from activation function
     W,b = params[-1]
-    current_value = (current_value @ W) + b
+    x = (x @ W) + b
 
     # each layer should be sequentially connected
-    # activation fn part of main architecture
-    # purpose of actv fn is to help neural network learn nonlinear patterns
 
     return current_value
-    
-
-
-    
