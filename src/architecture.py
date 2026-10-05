@@ -56,4 +56,4 @@ def PINN_Architecture(PRNG_key, input_array, activation_function, input_dim=2, o
 
     # each layer should be sequentially connected
 
-    return current_value
+    return x
