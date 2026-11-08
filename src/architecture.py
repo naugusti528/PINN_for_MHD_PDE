@@ -11,7 +11,7 @@
 import jax
 import jax.numpy as jnp
 
-def PINN_Architecture(PRNG_key, input_array, activation_function, input_dim=2, output_dim=8):
+def PINN_Architecture(PRNG_key, input_array, activation_function, input_dim=2, output_dim=3):
     # activation function is tanh
     # input dim is 2 because just x and t
     # output dim is 3 because density, pressure, 3-velocity, 3-Bfield
