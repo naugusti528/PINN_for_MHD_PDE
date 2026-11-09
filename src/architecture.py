@@ -10,6 +10,8 @@
 
 # can use any built in features in jax
 
+# hint: define sequential network. input, then next layer (then 1-line activ func), so on;
+# 
 
 import jax
 import jax.numpy as jnp
