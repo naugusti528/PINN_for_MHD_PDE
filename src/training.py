@@ -16,3 +16,5 @@ for step in range(num_steps):
 # output is u(x,t) and B(x,t), input 1000x1 vectors for x and t individually
 
 # load model, ask for input/output (accepted shapes)
+
+# create instance of architecture, pass input, run for some iterations, take output from network. 2x1000x1000
