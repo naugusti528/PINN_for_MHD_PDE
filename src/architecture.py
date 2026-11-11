@@ -20,7 +20,7 @@ def PINN_Architecture(PRNG_key, input_array, activation_function, input_dim=2, o
     # activation function is tanh - apply to last layer
     # layers in between (hidden layers) will use ReLU
     # input dim is 2 because just x and t
-    # output dim is 3 because density, pressure, 3-velocity, 3-Bfield
+    # output dim is 2 because 3-velocity, 3-Bfield
 
     hidden_layers = [64,64,64] # 3 layers 64 neurons
     
