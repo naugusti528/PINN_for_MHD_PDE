@@ -14,22 +14,9 @@ import equinox as eqx
 def PINN_Architecture(PRNG_key, input_dim=2, output_dim=2):
     # activation function is tanh - apply to last layer
     # layers in between (hidden layers) will use ReLU
-    # input dim is 2 because just x and t, output dim is 2 because 3-velocity, 3-Bfield
-
-    # hidden layer width 64, 3 layers
-    width_size = 64
-    depth = 3
-
+    # input dim, output dim = (x,t), (B,u)
     model = eqx.nn.MLP(in_size=input_dim, out_size=output_dim, width_size=64, depth=3,
-        activation=jax.nn.relu, final_activation=jax.nn.tanh, key=key)
-
-    for (W, b) in params[:-1]:
-        current_value = activation_function((x @ W) + b)
-        # we don't have to apply to eat neuron
-
-    # doing last tuple separately from activation function
-    W,b = params[-1]
-    x = (x @ W) + b
+        activation=jax.nn.relu, final_activation=jax.nn.tanh, key=PRNG_key)
 
     return model
 
