@@ -16,7 +16,7 @@
 import jax
 import jax.numpy as jnp
 
-def PINN_Architecture(PRNG_key, input_array, activation_function, input_dim=2, output_dim=3):
+def PINN_Architecture(PRNG_key, input_array, activation_function, input_dim=2, output_dim=2):
     # activation function is tanh - apply to last layer
     # layers in between (hidden layers) will use ReLU
     # input dim is 2 because just x and t
