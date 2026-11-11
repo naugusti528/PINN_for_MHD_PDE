@@ -7,3 +7,25 @@
 # Anna will prepare loss function for me (u(x,t) and B(x,t) pde residuums)
 
 # for now 1D assuming isothermal, incompressible, and momentum conservation
+
+import jax
+import jax.numpy as jnp
+ 
+## B0, ETA, L, NU -> DEFINE THESE CONSTANTS
+
+## B_fn, u_fn -> GET FROM MODEL
+ 
+# ---- derivatives of the network ----
+u_t = jax.grad(u_fn, argnums=2)
+u_x = jax.grad(u_fn, argnums=1)
+u_xx = jax.grad(u_x, argnums=1)
+ 
+B_t = jax.grad(B_fn, argnums=2)
+B_x = jax.grad(B_fn, argnums=1)
+B_xx = jax.grad(B_x, argnums=1)
+ 
+ 
+def pde_residual(model, x, t):
+    r_u = u_t(model, x, t) - B0 * B_x(model, x, t) - NU * u_xx(model, x, t)
+    r_B = B_t(model, x, t) - B0 * u_x(model, x, t) - ETA * B_xx(model, x, t)
+    return r_u, r_B
