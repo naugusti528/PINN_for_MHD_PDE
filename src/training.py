@@ -17,4 +17,8 @@ for step in range(num_steps):
 
 # load model, ask for input/output (accepted shapes)
 
-# create instance of architecture, pass input, run for some iterations, take output from network. 2x1000x1000
+# we should be able to print summary of model or whole network
+# tensorflow - model summary function
+# extend training loop, get data; more importantly first solidify boundary/initial conditions
+
+# create instance of architecture, pass random input, run for some iterations, take output from network. 2x1000x1000
