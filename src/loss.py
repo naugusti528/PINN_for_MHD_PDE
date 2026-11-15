@@ -3,6 +3,7 @@
 # for now 1D assuming isothermal, incompressible, and momentum conservation
 import jax
 import jax.numpy as jnp
+from architecture import PINN_Architecture
  
 ## B0, ETA, L, NU -> DEFINE THESE CONSTANTS
 # also should have T
@@ -14,13 +15,18 @@ L = 4 # dimensionless value - for 4 gravitational radii
 T = 5 # represents light crossing the distance L 5 times
 
 ## B_fn, u_fn -> GET FROM MODEL
+key = jax.random.key(0)
+model = PINN_Architecture(key)
+
 def B_fn(model, x, t):
- jnp.stack([x,t])
- return 0;
+ x_t_stacked = jnp.stack([x,t])
+ model(x_t_stacked)
+ return model[0]
 
 def u_fn(model, x, t):
- jnp.stack([x,t])
- return 0;
+ x_t_stacked = jnp.stack([x,t])
+ model(x_t_stacked)
+ return model[1]
 
 # ---- derivatives of the network ----
 u_t = jax.grad(u_fn, argnums=2)
