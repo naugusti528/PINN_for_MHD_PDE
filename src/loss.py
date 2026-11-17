@@ -35,6 +35,9 @@ def pde_residual(model, x, t):
  r_B = B_t(model, x, t) - B0 * u_x(model, x, t) - ETA * B_xx(model, x, t)
  return r_u, r_B
 
+def residual_loss(''' whatever parameters go in here '''):
+ # pde residual loss function. applying vmap over points and taking mean of squared residuals
+
 if __name__ == "main":
  key = jax.random.key(0)
  model = PINN_Architecture(key)
