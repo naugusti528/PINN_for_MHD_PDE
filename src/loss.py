@@ -8,8 +8,8 @@ from architecture import PINN_Architecture
 B0 = 100 # in units of Gauss
 ETA = 10**-3
 NU = 10**-4
-L = 4 # dimensionless value - for 4 gravitational radii
-T = 5 # represents light crossing the distance L 5 times
+L = 1000
+T = 1000
 
 def B_fn(model, x, t):
  x_t_stacked = jnp.stack([x,t])
@@ -35,7 +35,12 @@ def pde_residual(model, x, t):
  r_B = B_t(model, x, t) - B0 * u_x(model, x, t) - ETA * B_xx(model, x, t)
  return r_u, r_B
 
-def residual_loss(''' whatever parameters go in here '''):
+def residual_loss(model, points):
+ points = generate_collocation_points([[0, L], [0, T]], n_points=2000)
+ x = [row[0] for row in points]
+ t = [row[1] for row in points]
+
+ ''' ----- '''
  # pde residual loss function. applying vmap over points and taking mean of squared residuals
 
 if __name__ == "main":
