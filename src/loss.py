@@ -7,10 +7,6 @@ from architecture import PINN_Architecture
 from data import generate_collocation_points
 from constants import B0, ETA, NU, L
 
-B0 = 100 # in units of Gauss
-ETA = 10**-3
-NU = 10**-4
-L = 1000
 T = 1000
 
 def B_fn(model, x, t):
