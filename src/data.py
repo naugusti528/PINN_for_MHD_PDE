@@ -21,7 +21,8 @@ def generate_collocation_points(domain_bounds, n_points, seed=0):
   scaled_array = qmc.scale(array_to_scale, l_bounds, u_bounds)
   return jnp.asarray(scaled_array)
 
-  # refer to jax documentation for functions simplifying collocation point creation
+def initial_conditions(x):
+  u0 = jnp.sin(
   
 
 def load_boundary_conditions(bc_input=None):
