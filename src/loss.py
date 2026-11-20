@@ -5,6 +5,7 @@ import jax
 import jax.numpy as jnp
 from architecture import PINN_Architecture
 from data import generate_collocation_points
+from constants import B0, ETA, NU, L
 
 B0 = 100 # in units of Gauss
 ETA = 10**-3
