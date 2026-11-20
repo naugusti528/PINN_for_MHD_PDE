@@ -1,6 +1,6 @@
 import math
 
-L = 1000
+L = 2*math.pi
 T = 1000
 K = 1
 B0 = 100
