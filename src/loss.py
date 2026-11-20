@@ -4,6 +4,7 @@
 import jax
 import jax.numpy as jnp
 from architecture import PINN_Architecture
+from data import generate_collocation_points
 
 B0 = 100 # in units of Gauss
 ETA = 10**-3
@@ -37,13 +38,14 @@ def pde_residual(model, x, t):
 
 def residual_loss(model, points):
  points = generate_collocation_points([[0, L], [0, T]], n_points=2000)
- x = [row[0] for row in points]
- t = [row[1] for row in points]
+ x,t = points[:,0], points[:,1]
+ batched_residual = jax.vmap(pde_residual, in_axes=(None,0,0))
+ r_u,r_B = batched_residual(model, x, t)
+ return jnp.mean(r_u**2 + r_B**2)
 
- ''' ----- '''
- # pde residual loss function. applying vmap over points and taking mean of squared residuals
+def 
 
-if __name__ == "main":
+if __name__ == "__main__":
  key = jax.random.key(0)
  model = PINN_Architecture(key)
  print("tests:")
