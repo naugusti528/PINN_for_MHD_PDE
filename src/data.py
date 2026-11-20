@@ -7,6 +7,7 @@ import jax
 import jax.numpy as jnp
 jax.config.update("jax_enable_x64", True)
 from scipy.stats import qmc
+from constants import L, K
 
 def load_solver_csv(csv_path):
   # for later, not now
